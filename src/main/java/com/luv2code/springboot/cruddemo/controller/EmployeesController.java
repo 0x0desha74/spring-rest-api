@@ -26,9 +26,31 @@ public class EmployeesController {
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
+    @GetMapping("employees/{id}")
+    public ResponseEntity<Employee> getEmployee(@PathVariable int id){
+        Employee employee = employeeService.findById(id);
+        return new ResponseEntity<>(employee,HttpStatus.OK);
+    }
 
 
+    @PostMapping("employees")
+    public ResponseEntity<Employee> addEmployee(@RequestBody Employee employee){
+        Employee createdEmployee = employeeService.save(employee);
+        return new ResponseEntity<>(employee,HttpStatus.CREATED);
+    }
 
+    @PutMapping("employees")
+    public ResponseEntity<Employee> updateEmployee(@RequestBody Employee employee){
+        Employee createdEmployee = employeeService.save(employee);
+        return new ResponseEntity<>(employee,HttpStatus.OK);
+    }
+
+
+    @DeleteMapping("employees/{id}")
+    public ResponseEntity<HttpStatus> deleteEmployee(@PathVariable int id){
+        employeeService.deleteById(id);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 
 
