@@ -3,6 +3,7 @@ package com.luv2code.springboot.cruddemo.service;
 import com.luv2code.springboot.cruddemo.dao.EmployeeDAO;
 import com.luv2code.springboot.cruddemo.entity.Employee;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -18,5 +19,26 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public List<Employee> findAll() {
         return employeeDAO.findAll();
+    }
+
+    @Override
+    public Employee findById(int id) {
+    Employee employee = employeeDAO.findById(id);
+    if(employee ==null)
+        throw new IllegalArgumentException("Employee not found. Invalid employee ID provided.");
+    return employee;
+    }
+
+    @Transactional
+    @Override
+    public Employee save(Employee entity) {
+
+        return employeeDAO.save(entity);
+    }
+
+    @Transactional
+    @Override
+    public void deleteById(int id) {
+        employeeDAO.deleteById(id);
     }
 }
